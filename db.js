@@ -22,10 +22,10 @@ if( process.env.DATABASE_URL ){
     var configs = {
         user: 'sabrinachow',
         host: '127.0.0.1',
-        database: 'wireFrame',
+        database: 'happydead',
         port: 5432
     };
-  }
+}
 
 const poolObj = new pg.Pool(configs);
 
@@ -34,13 +34,13 @@ poolObj.on('error', function(err) {
 });
 
 const userModel = require('./models/user');
-const appleModel = require('./models/app');
+// const appleModel = require('./models/app');
 const userObj = userModel(poolObj);
-const appleObj = appleModel(poolObj);
+// const appleObj = appleModel(poolObj);
 
 
 module.exports = {
     user: userObj,
     pool: poolObj,
-    apple: appleObj
+    // apple: appleObj
 }

@@ -1,8 +1,8 @@
 module.exports = (app, db, io) => {
     const users = require('./controllers/users.js')(db);
-    const apps = require('./controllers/apps.js')(db, io);
+    // const apps = require('./controllers/apps.js')(db, io);
 
-    app.get('/', users.get);
+    // app.get('/', users.get);
     
     //login
     app.get('/login', users.login);
@@ -13,7 +13,8 @@ module.exports = (app, db, io) => {
     app.post('/signup', users.createUser);
 
     // //dashboard
-    // app.get('/dashboard', users.userDashboard);
+	app.get('/dashboard', users.userDashboard);
+	app.get('/game', users.userDashboard);
     // app.get('/getOwnProjects', apps.getOwnProjects);
     // app.get('/getSharedProjects', apps.getSharedProjects);
     // app.post('/shareProject', apps.shareProject);

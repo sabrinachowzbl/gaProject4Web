@@ -1,0 +1,302 @@
+.bg-primary {
+	background-color: black;
+}
+
+body {
+    font-family: sans-serif;
+    margin: 0px;
+}
+
+.whole {
+    position: relative;
+    /* width: 80%; */
+    margin: 0 auto;
+    height: 80vh;
+    border: 1px solid black;
+    /* border-bottom: 0px; */
+    /* display: inline-block; */
+}
+
+.gameName {
+    border: 1px solid black;
+    /* border-bottom: 1px solid black; */
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    /* height: 7%; */
+}
+
+.gameBox {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    /* height: 92.75%; */
+    border-left: 1px solid black;
+    /* border-top: 1px solid black; */
+    display: inline-block;
+    left: 10px;
+}
+
+.container {
+    /* border: 1px solid black; */
+    height: 80%;   
+}
+
+.level {
+    /* border: 1px solid black; */
+    /* height: 20%; */
+    vertical-align: top;
+    position: relative;
+    margin: 0px;
+}
+
+.hp {
+    position: relative;
+    top: 30px;
+    text-align: center;
+}
+#myHealth {
+    width: 70%;
+    background-color: #ddd;
+    margin: 0 auto;
+    position: relative;
+    bottom: 12px;
+  }
+  
+#myBar {
+    width: 1%;
+    height: 30px;
+    background-color: #4CAF50;
+  }
+
+
+
+.right {
+    /* border: 1px solid black; */
+    width: 29%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    left: 10px;
+}
+
+.insertName {
+    width: 100%;
+    /* border: 1px solid black; */
+    margin: 40vh auto 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.text {
+    height: 30px;
+}
+
+.bigBox {
+    /* margin: 15vh auto 0 auto; */
+    width: 700px;
+    height: 700px;
+    border: 1px solid black;
+    margin: 0 auto;
+    line-height: 1px;
+}
+
+.smallBox {
+    /* border: 1px solid black; */
+    border: 1px solid white;
+    position: relative;
+    display: inline;
+}
+
+#name {
+    left: 30%;
+    position: absolute;
+    height: 50px;
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+#select {
+    left: 43%;
+    /* position: absolute; */
+    display: block;
+    top: 42px;
+    position: relative;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.button {
+    text-align: center;
+    position: relative;
+    padding: 10px;
+    /* border: 1px solid darkblue; */
+    background-color: coral;
+    display: block;
+    color: white;
+    width: 150px;
+    height: 40px;
+    left: 40%;
+    top: 50px;
+    font-size: 27px;
+    border-radius: 10px;
+    /* margin: 0 auto; */
+}
+
+.button:hover {
+    background-color: brown;
+}
+
+.playerBox {
+    /* background-color: red; */
+    background-image: url('img/player.png');
+    background-size: contain;
+}
+
+.botBox {
+    /* background-color: grey; */
+    /* background-image: url('img/zombies.png'); */
+    /* background-image: url('img/cuteSkullBlack.png'); */
+    background-image: url('img/devil.png');
+    background-size: contain;
+}
+
+.bulletBox {
+    /* background-color: black; */
+    background-image: url('img/gunB.png');
+    background-size: contain;
+}
+
+.grenadeBox {
+    background-image: url('img/zombies.png');
+    background-size: contain;
+}
+
+.weapons {
+    position: relative;
+    margin-top: 40px;
+}
+
+.weaponBoxChosen {
+    width: 99%;
+    height: 100px;
+    background-color: lightgreen;
+    color: green;
+    border: 1px solid grey;
+    margin: 10px auto;
+    position: relative;
+    top: 10px;
+    border-radius: 10px;
+}
+
+.weaponBox {
+    width: 99%;
+    height: 100px;
+    background-color: beige;
+    color: brown;
+    border: 1px solid grey;
+    margin: 10px auto;
+    position: relative;
+    top: 10px;
+    border-radius: 10px;
+}
+
+.noWeaponBox {
+    width: 99%;
+    height: 100px;
+    background-color: gray;
+    color: darkgray;
+    border: 1px solid black;
+    margin: 10px auto;
+    position: relative;
+    top: 10px;
+    border-radius: 10px;
+}
+
+.botsLeft {
+    position: relative;
+    margin-top: 40px;
+    color: red;
+}
+
+.controls {
+    color: purple;
+    padding: 1px 30px 0px  20px;
+    font-size: 15px;
+}
+
+.weaponImgPistol {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: 8px;
+    left: 8px;
+    background-image: url('img/revolver.png');
+    display: inline-block;
+    /* border: 1px solid black; */
+    background-size: contain;
+}
+
+.weaponImgShotgun {
+    width: 80px;
+    height: 80px;
+    background-image: url('img/shotgun.png');
+    display: inline-block;
+    background-size: contain;
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+.weaponImgGrenade {
+    width: 80px;
+    height: 80px;
+    background-image: url('img/grenade.png');
+    display: inline-block;
+    background-size: contain;
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+
+.weaponName {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    top: 25px;
+    left: 30px;
+    font-size: 35px;
+}
+
+.weaponNumber {
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    right: 25px;
+    float: right;
+    font-size: 20px;
+}
+
+.weaponDamagePistol {
+    display: inline-block;
+    position: relative;
+    top: 60px;
+    left: 85px;
+    float: right;
+    font-size: 20px;
+}
+
+.weaponDamage {
+    display: inline-block;
+    position: relative;
+    left: -20px;
+    bottom: 20px;
+    float: right;
+    font-size: 20px;
+}
+
