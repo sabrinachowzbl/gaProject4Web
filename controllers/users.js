@@ -58,7 +58,8 @@ module.exports = function (db) {
         let user_id = request.cookies.user_id;
 
         db.user.getUsersFromId(user_id, (err, queryResult) => {
-            response.render('game', {username: queryResult.rows[0].username, id: queryResult.rows[0].id});
+			// response.render('game', {username: queryResult.rows[0].username, id: queryResult.rows[0].id});
+			response.redirect('/game');
         })
     }
 

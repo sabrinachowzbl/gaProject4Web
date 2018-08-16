@@ -1,104 +1,62 @@
+var gameLogic = require('./bot.js');
+
 module.exports = function (db, io) {
-    let socketRooms = {};
+	let socketRooms = {};
+	let games = {};
+	let playersPosition = {};
+	let players = [];
 
-    const drawingBoard = (request, response) => {
-        let id = request.params.id;
-        
-        //Socket Setup
-        socketRooms[id] = io.of('/drawingBoard/' + id);
+	const gameSocket = (request, response) => {
+		let id = request.params.id;
+		//Socket Setup
+        socketRooms[id] = io.of('/game/' + id);
 
-        socketRooms[id].on('connection', function (socket) {
-            console.log('made socket connection', socket.id);
-            // socketRooms[id].emit('hi', 'Hello!');
+		socketRooms[id].on('connect', function (socket) {
+			console.log('made socket connection', socket.id);
+			
 
-            socket.on('changedObj', function (data) {
-                console.log('changed object');
-                socketRooms[id].emit('changedObj', data);
-            })
-        });
+			//setup -> send bots and player information
+			console.log('setting up...')
+			if (games[id] == null) {
+				let game = gameLogic.createGame()
+				games[id] = game;
+				let player = gameLogic.createPlayer(game);
 
-        //cookies and rendering jsx template
-        response.cookie('drawingBoard', id);
-        response.render('drawingBoard', {username: request.cookies.username, id: id});
-    }
+				let playersPosition = gameLogic.playerCheck(game);
+				socketRooms[id].emit('setup', playersPosition, player.id);
+			} else {
+				let player = gameLogic.createPlayer(games[id]);
+				
+				let playersPosition = gameLogic.playerCheck(games[id]);
+				socketRooms[id].emit('setup', playersPosition, player.id);	
+			}
 
-    const getObjects = (request, response) => {
-        let id = request.cookies.drawingBoard;
+			// gameSocketRoom.emit('bots', bots);
+			// bulletClock;
+			// socketRooms[id].emit('hi', 'Hello!');
 
-        db.apple.getObjects(id, (err, queryResult) => {
-            if (err) {
-                console.log('db error: ' + err.message);
-                response.send('db error: ' + err.message);
-            } else {
-                response.send(queryResult.rows);
-            }
-        });
-    }        
+			// socket.on('changedObj', function (data) {
+			// 	console.log('changed object');
+			// 	socketRooms[id].emit('changedObj', data);
+			// });
 
+			socket.on('playerMove', function (dir, playerId) {
+				//move the players in the game logic
+				gameLogic.movePlayer(games[id], dir, playerId);
+				
+				//send out the current players positions
+				let playersPosition = gameLogic.playerCheck(games[id]);
+				socket.emit('playerMoved', playersPosition);
+			});
+			
+		});
 
-    const uploadDrawing = (request, response) => {
-        console.log(request.body);
-        let json = request.body;
-        db.apple.uploadDrawing(json, request.cookies.drawingBoard, (err, result) => {
-            if(err) {
-                response.send('db error: ' +  err.message);
-            } else {
-                response.send(result);
-            }
-        });
-    }
-
-    const getOwnProjects = (request, response) => {
-        db.apple.getOwnProjects(request.cookies.user_id, (err, result) => {
-            if (err) {
-                response.send('db error: ' + err.message);
-            } else {
-                response.send(result.rows);
-            }
-        });
-    }
-
-    const getSharedProjects = (request, response) => {
-        db.apple.getSharedProjects(request.cookies.user_id, (err, result) => {
-            if (err) {
-                response.send('db error: ' +  err.message);
-            } else {
-                response.send(result.rows);
-            }
-        })
-    }
-    
-    const createProjects = (request, response) => {
-        db.apple.createProjects(request.cookies.user_id, request.body.projectName, (err, result) => {
-            if (err) {
-                response.send('db error: ' + err.message);
-            } else {
-                console.log(result.rows);
-                response.render('dashboard', {username: request.cookies.username})
-            }
-        })
-    }
-
-    const shareProject = (request, response) => {
-        console.log('shareProject controller');
-        console.log('request email: ' + request.query.user_id);
-        console.log('request id: ' + request.query.id);
-        db.apple.shareProject(request.query.user_id, request.query.id, (err, result) => {
-            if (err) {
-                response.send('db error: ' + err.message);
-            } else {
-                console.log(result.rows);
-            }
-        });
-    }
+		// cookies and rendering jsx template
+	    response.cookie('gameSocket', id);
+	    response.render('game', {username: request.cookies.username, id: id});
+	}
 
     return {
-        drawingBoard: drawingBoard,
-        getObjects: getObjects,
-        uploadDrawing: uploadDrawing,
-        getOwnProjects: getOwnProjects,
-        getSharedProjects: getSharedProjects,
-        createProjects: createProjects,
-        shareProject: shareProject
+        gameSocket: gameSocket
     }
 }

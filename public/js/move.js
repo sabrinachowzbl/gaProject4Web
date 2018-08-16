@@ -16,13 +16,16 @@ var hp = 1000;
 var checkPause = false;
 
 function changeImageDir(entity, dir, node) {
-    if(entity == 'player') {
-        var playerBox = player.parentNode;
+	console.log('changing image');
+    if(entity == 'player') { 
+        var playerBox = node.parentNode;
         if (dir == 'up') {
+			console.log('upImg');
             playerBox.style.transform = "rotate(0deg)";
         } else if (dir == 'down') {
             playerBox.style.transform = "rotate(180deg)";
         } else if (dir == 'left') {
+			console.log('leftImg');
             playerBox.style.transform = "rotate(270deg)";
         } else if (dir == 'right') {
             playerBox.style.transform = "rotate(90deg)";
@@ -61,7 +64,7 @@ function moveUp () {
 
         changeImageDir('player', 'up')
         //change direction
-        direction = 'up';
+		direction = 'up';
     }
 }
 
@@ -127,49 +130,55 @@ function moveRight () {
 
 var playerBoxPause;
 //pause function
-function pause () {
-    if(checkPause) {
-        //make bots move
-        botCheckInt = setInterval(botCheck, 500);
-        //re-introduce player
-        playerBoxPause.appendChild(player);
-        playerBoxPause.classList.add('playerBox');
-        //delete text for pause
-        var text = document.getElementsByClassName('text')[0].childNodes[0];
-        text.style.color = 'white';
+// function pause () {
+//     if(checkPause) {
+//         //make bots move
+//         // botCheckInt = setInterval(botCheck, 500);
+//         //re-introduce player
+//         playerBoxPause.appendChild(player);
+//         playerBoxPause.classList.add('playerBox');
+//         //delete text for pause
+//         var text = document.getElementsByClassName('text')[0].childNodes[0];
+//         text.style.color = 'white';
 
-        checkPause = false;
-    } else {
-        //make bots stop
-        clearInterval(botCheckInt);
-        //get rid of player
-        var playerBox = player.parentNode;
-        playerBoxPause = player.parentNode;
-        playerBox.removeChild(player);
-        playerBox.classList.remove('playerBox');
-        //create text for pause
-        var text = document.getElementsByClassName('text')[0].childNodes[0];
-        text.style.color = 'black';
-        text.innerText = "PAUSED, press 'p' to continue";
+//         checkPause = false;
+//     } else {
+//         //make bots stop
+//         // clearInterval(botCheckInt);
+//         //get rid of player
+//         var playerBox = player.parentNode;
+//         playerBoxPause = player.parentNode;
+//         playerBox.removeChild(player);
+//         playerBox.classList.remove('playerBox');
+//         //create text for pause
+//         var text = document.getElementsByClassName('text')[0].childNodes[0];
+//         text.style.color = 'black';
+//         text.innerText = "PAUSED, press 'p' to continue";
 
-        checkPause = true;
-    }
-}
+//         checkPause = true;
+//     }
+// }
+
+
 
 function move (event) {
     // console.log( "current element", event.keyCode)
     if (event.keyCode == "38") {
         //up button
-        moveUp();
+		// moveUp();
+		socketFunctions.sendMove('up');
     } else if (event.keyCode == "40") {
         //down button
-        moveDown();
+		// moveDown();
+		socketFunctions.sendMove('down');
     } else if (event.keyCode == "37") {
         //left button
-        moveLeft();
+		// moveLeft();
+		socketFunctions.sendMove('left');
     } else if (event.keyCode == "39") {
         //right button
-        moveRight();
+		// moveRight();
+		socketFunctions.sendMove('right');
     } else if  (event.keyCode == "32") {
         //space bar 
         //in weapons

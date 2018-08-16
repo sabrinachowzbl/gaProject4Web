@@ -17,13 +17,13 @@ function checkWinLoss (int) {
     updateProgressBar();
 
     //checking if ded
-    if(getBots.length == 0 && check>=2) {
-        var text = document.getElementsByClassName('text')[0].childNodes[0];
-        text.style.color = 'green';
-        text.innerText = 'YOU WON!';
-        clearInterval(int);
-        clearInterval(botCheckInt);
-    }
+    // if(getBots.length == 0 && check>=2) {
+    //     var text = document.getElementsByClassName('text')[0].childNodes[0];
+    //     text.style.color = 'green';
+    //     text.innerText = 'YOU WON!';
+    //     clearInterval(int);
+    //     clearInterval(botCheckInt);
+    // }
 
     if(hp <= 0 && check>=2) {
         var text = document.getElementsByClassName('text')[0].childNodes[0];

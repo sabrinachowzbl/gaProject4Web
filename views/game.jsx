@@ -51,12 +51,14 @@ class Game extends React.Component {
 					</div>
 				</div>
 
-				<script src="js/fire.js"></script>
-				<script src="js/move.js"></script>
-				<script src="js/weapons.js"></script>
-				<script src="js/bot.js"></script>
-				<script src="js/check.js"></script>
-				<script src="js/setup.js"></script>
+				<script src="/js/fire.js"></script>
+				<script src="/js/move.js"></script>
+				<script src="/js/weapons.js"></script>
+				{/* <script src="js/bot.js"></script>  */}
+				<script src="/js/check.js"></script>
+				<script src="/js/socket.js"></script>
+				<script src="/js/renderSocket.js"></script>
+				<script src="/js/setup.js"></script>
 			</LayoutContainer>
 		);
 	}

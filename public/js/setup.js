@@ -1,7 +1,7 @@
 //record the name
 function nameRecord () {
     name = document.getElementById('name').value;
-    console.log(name);
+    console.log('name: ' + name);
 }
 
 function buildingGrid () {
@@ -116,9 +116,9 @@ function buildRight() {
      controls.appendChild(controlPause);
  
      //Bots Left
-     var botsLeftText = document.createElement('h3');
-     botsLeftText.innerText = 'Bots left: ' + botsWanted + ' / ' + botsWanted;
-     botsLeft.appendChild(botsLeftText);
+    //  var botsLeftText = document.createElement('h3');
+    //  botsLeftText.innerText = 'Bots left: ' + botsWanted + ' / ' + botsWanted;
+    //  botsLeft.appendChild(botsLeftText);
 
     //build Weapons
         //text for weapons
@@ -214,24 +214,28 @@ function buildRight() {
 
 
 
-
+var socketFunctions;
 function setup () {
     nameRecord();
 
     //build the grid and remove the stuff inside
-    buildingGrid();
+	buildingGrid();
+	
+	//connect to server, get bots and player positions
+	console.log('starting server');
+	socketFunctions = serverStart();
 
     //creating walls
     createWalls();
 
     //adding player to grid 
-    addingPlayer();
+    // addingPlayer();
 
     //listen for keydown strokes
     document.addEventListener('keydown', move);
 
     //getting zombies --> in bot.js
-    levelOne();
+    // levelOne();
 
     //checking for Win Loss Situation --> in check.js
     var int = setInterval(function () {checkWinLoss(int)}, 500);
@@ -243,7 +247,7 @@ function setup () {
     buildRight();
 
     //pause
-    pause();
+    // pause();
 }
 
 
