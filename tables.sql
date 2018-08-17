@@ -6,3 +6,9 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255),
     password_hash VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS winloss (
+	id SERIAL PRIMARY KEY,
+	users_id INT,
+	win_loss VARCHAR(4)
+)

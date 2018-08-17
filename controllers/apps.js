@@ -20,14 +20,16 @@ module.exports = function (db, io) {
 			if (games[id] == null) {
 				let game = gameLogic.createGame()
 				games[id] = game;
-				let player = gameLogic.createPlayer(game);
+				let player = gameLogic.createPlayer(games[id], socket.id);
+				console.log('player Made NEW!')
 
 				let playersPosition = gameLogic.playerCheck(game);
 				socketRooms[id].emit('setup', playersPosition, player.id);
-			} else {
-				let player = gameLogic.createPlayer(games[id]);
+			} else if (gameLogic.checkForSocket(socket.id, games[id])) {
+				let player = gameLogic.createPlayer(games[id], socket.id);
 				
 				let playersPosition = gameLogic.playerCheck(games[id]);
+				console.log('player Made!')
 				socketRooms[id].emit('setup', playersPosition, player.id);	
 			}
 
@@ -48,15 +50,61 @@ module.exports = function (db, io) {
 				let playersPosition = gameLogic.playerCheck(games[id]);
 				socket.emit('playerMoved', playersPosition);
 			});
-			
+
 		});
 
 		// cookies and rendering jsx template
 	    response.cookie('gameSocket', id);
-	    response.render('game', {username: request.cookies.username, id: id});
+	    response.render('gameSocket', {username: request.cookies.username, id: id});
+	}
+
+	const game = (request, response) => { //load html game
+		response.render('game', {username: request.cookies.username});
+	}
+
+	const postGameStats = (request, response) => { //upload win or loss and redirect to dashboard
+		console.log('posting game stats');
+		console.log(request.body.winLoss);
+
+		let userId = request.cookies['user_id'];
+		let winLoss = request.body.winLoss;
+		db.apple.postGameStats(userId, winLoss, (results) => {
+			console.log(results);
+			response.redirect('/dashboard');
+		});
+	}
+
+	const getDashboard = (request, response) => {
+		// console.log(request.body);
+
+		let userId = request.cookies['user_id'];
+		db.apple.getGameStats(userId, (results) => {
+			console.log(results);
+			let wins = 0;
+			let losses = 0;
+
+			for (let i=0; i<results.length; i++) {
+				console.log(results[i]);
+				switch (results[i].win_loss) {
+					case 'win':
+						wins++;
+						break;
+					case 'lost':
+						losses++;
+						break;
+					default:
+				}
+			}
+
+			let gameUrl = '/game/' + userId.toString();
+			response.render('gameDashboard', {wins: wins.toString(), losses: losses.toString(), gameUrl: gameUrl});
+		});
 	}
 
     return {
-        gameSocket: gameSocket
+		gameSocket: gameSocket,
+		game: game,
+		postGameStats: postGameStats,
+		getDashboard: getDashboard
     }
 }

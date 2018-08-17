@@ -5,19 +5,20 @@ var num = 30;
 class Game { 
 	constructor () {
 		this.players = [];
-		this.bots = [];
-		this.playerIds = 0;
+		// this.bots = [];
+		this.playerId = 0;
 	}
 }
 
 //PLAYER CLASS
 class Player {
-	constructor (position, game) {
+	constructor (position, socketId, game) {
 		this.currPosition = position;
 		this.direction = 'up';
 		this.hp = 1000;
-		this.id = game.playerIds;
-		game.playerIds ++;
+		this.id = game.playerId;
+		this.socketId = socketId;
+		game.playerId ++;
 	}
 
 	updateCurrPosition (currentPosition) {
@@ -44,7 +45,7 @@ function createGame () {
 	return game;
 }
 
-function createPlayer (game) {
+function createPlayer (game, socketId) {
 	let check = true;
 	let playerPos;
 
@@ -64,7 +65,7 @@ function createPlayer (game) {
 		} 
 	}
 
-	let newPlayer = new Player(playerPos, game);
+	let newPlayer = new Player(playerPos, socketId, game);
 	game.players.push(newPlayer);
 	return newPlayer;
 }
@@ -142,7 +143,17 @@ function movePlayer (game, dir, playerId) {
 }
 
 
+function checkForSocket (socketId, game) {
+	let players = game.players;
 
+	for (let i=0; i<players.length; i++) {
+		if (players[i].socketId == socketId) {
+			return false;
+		}
+	}
+
+	return true;
+}
 
 
 function gameSituation (game) {
@@ -155,6 +166,7 @@ module.exports = {
 	createPlayer : createPlayer,
 	playerCheck : playerCheck,
 	movePlayer : movePlayer,
+	checkForSocket : checkForSocket,
 	gameSituation : gameSituation
 }
 

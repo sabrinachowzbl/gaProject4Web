@@ -33,8 +33,12 @@ function renderPlayers (playerPositions) {
 	console.log('Removing players');
 	//remove all players
 	let playersOnMap = document.getElementsByClassName('playerBox');
+	console.log('playersOnMap: ' + playersOnMap)
 	let numPlayersOnMap = playersOnMap.length;
 	for (let i=0; i<numPlayersOnMap; i++) { //iterate through the playerBoxes on the map
+		if (playersOnMap[i] === undefined) {
+			debugger;
+		}
 		let player = playersOnMap[i].childNodes;
 		for(let a=0; a<player.length; a++) { //find the child node of the playerBox that is the player
 			if (player[a].id.split(':')[0] == 'player') {

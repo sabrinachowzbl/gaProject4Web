@@ -1,7 +1,7 @@
 var React = require('react');
 var LayoutContainer = require('./loggedInLayout.jsx');
 
-class Game extends React.Component {
+class GameSocket extends React.Component {
 	render() {
 		return (
 			<LayoutContainer>
@@ -27,7 +27,6 @@ class Game extends React.Component {
 						<div className='col-md-9'>
 							<div className='gameBox row'>
 								<div className='containerBox'>
-									<div id='replayBtn'></div>
 									<div className="text"><h1></h1></div>
 									<div className='insertName'>
 										<input type="text" placeholder="name" id="name" /><br />
@@ -52,15 +51,17 @@ class Game extends React.Component {
 					</div>
 				</div>
 
-				<script src="/gameJs/fire.js"></script>
-				<script src="/gameJs/move.js"></script>
-				<script src="/gameJs/weapons.js"></script>
-				<script src="/gameJs/bot.js"></script>
-				<script src="/gameJs/check.js"></script>
-				<script src="/gameJs/setup.js"></script>
+				<script src="/js/fire.js"></script>
+				<script src="/js/move.js"></script>
+				<script src="/js/weapons.js"></script>
+				{/* <script src="js/bot.js"></script> */}
+				<script src="/js/check.js"></script>
+				<script src="/js/socket.js"></script>
+				<script src="/js/renderSocket.js"></script>
+				<script src="/js/setup.js"></script>
 			</LayoutContainer>
 		);
 	}
 }
 
-module.exports = Game;
+module.exports = GameSocket;

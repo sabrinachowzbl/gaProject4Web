@@ -15,7 +15,10 @@ module.exports = (app, db, io) => {
     // //dashboard
 	// app.get('/dashboard', users.userDashboard);
 	// app.get('/gameboard', users.userDashboard);
-	app.get('/game/:id', apps.gameSocket);
+	app.get('/gameSocket/:id', apps.gameSocket);
+	app.get('/game/:id', apps.game);
+	app.post('/postGameStats', apps.postGameStats);
+	app.get('/dashboard', apps.getDashboard);
     // app.get('/getOwnProjects', apps.getOwnProjects);
     // app.get('/getSharedProjects', apps.getSharedProjects);
     // app.post('/shareProject', apps.shareProject);

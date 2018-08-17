@@ -10,9 +10,11 @@ function serverStart() {
 
 	//setting up 
 	socket.on('setup', function(playersPositions, playerid){
-		console.log('setting up...');
-		// renderBots(bots);
-		playerId = playerid;
+		// console.log('setting up...');
+		// renderBots(bots);\
+		if (playerId === undefined ) {
+			playerId = playerid;
+		}
 		renderPlayers(playersPositions);
 	});
 
